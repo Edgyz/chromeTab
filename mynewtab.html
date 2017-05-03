@@ -1,0 +1,140 @@
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <script src="background.js"></script>
+  <style>
+  body {
+    font-family:'Open Sans', Raleway, Helvetica, Arial, sans-serif;
+    background: url(prettypicture.png) no-repeat #000000 ;
+    background-size:cover;
+    width:100%;
+    height:100%;
+    color:#ffffff;
+  }
+
+  #timedetails {
+    float:left;
+
+  }
+
+    #leftcolumn {
+      width:35%;
+
+    }
+    #time {
+      height:50px;
+    }
+      #clock {
+        padding:0 10px;
+        float:left;
+      }
+
+#text, #currenttask {
+  padding:10px 0;
+}
+
+        h1{
+          font-size:48px;
+        }
+        h2{
+        font-size:34px;
+        }
+        h3{
+        color:rgb(0, 189, 249);
+        }
+        h1,h2,h3,h4,h5,h6, ul{
+            font-weight:lighter;
+            margin:0;
+            padding:0;
+          }
+      ul {
+        list-style:none;
+        font-size: 14px;
+        line-height: 24px;
+      }
+
+      li {
+        border-bottom:1px #555 solid;
+      }
+    .semibold {
+      font-weight:600;
+    }
+      .bold {
+        font-weight:800;
+      }
+
+      .strike {
+        text-decoration: line-through;
+      }
+
+      .fa {
+        padding-right: 5px;
+      }
+
+      h2 .currenttask{
+        padding:0;
+        margin:0;
+      }
+  </style>
+<link rel="stylesheet" href="font-awesome.min.css">
+
+</head>
+<body>
+
+<div id="leftcolumn">
+<div id="time">
+
+
+<table>
+<tr>
+  <td>
+    <div id="clock">
+  <h1 id="currenttime">10:23</h1>
+  </div>
+</td>
+  <td>
+    <div id="timedetails">
+    <h6>
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    <br>
+    Came in at <span class="semibold"> 09:45</span>
+    <br> Free to go at <span class="semibold"> 18:45</span>
+    </h6>
+    </div>
+
+</td>
+</tr>
+</table>
+
+</div>
+<div id="text"><br>
+<h2 id="salut"> Good Morning, <span class="semibold"> Inès</span>!</h2>
+<br>
+</div>
+<div id="maintask">
+<h3>Current Task</h3>
+<h2 class="currenttask"> Rajouter l'édition des tâches & le check (done/undone/clean list) </h2>
+<br>
+</div>
+
+<div id="upnext">
+<h3>Up Next</h3>
+<ul>
+  <li  class="strike"><i class="fa fa-square" aria-hidden="true"></i> List item number 1
+</li>
+  <li><i class="fa fa-square-o" aria-hidden="true"></i> Rajouter des salutations en fonction de l'heure, etc.
+</li>
+  <li><i class="fa fa-square-o" aria-hidden="true"></i> Rajouter des suggestions type "verre d'eau" ?
+</li>
+</li>
+  <li><i class="fa fa-square-o" aria-hidden="true"></i> Rajouter l'édition de l'heure d'arrivée + calcul de l'heure de départ
+</li>
+  <li><i class="fa fa-square-o" aria-hidden="true"></i> Rajouter la météo
+</li>
+</ul>
+<br>
+</div>
+</div>
+
+</body>
+</html>
