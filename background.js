@@ -46,9 +46,33 @@ function sayHi(hours,minutes) {
 function getStarted() {
 fetchDate();
 setInterval(fetchDate, 30000);
+
+document.getElementById('currenttask').addEventListener('input', saysomething);
+
+ }
+
+function saysomething(){
+
+  console.log("wheteveresr");
+}
+
+
+
+
+ function makeEditable(elementidname){
+  var attribStatus = document.getElementById(elementidname).setAttribute('contenteditable',"true");
+    console.log("edited");
+    document.getElementById(elementidname).addEventListener("onfocusout", makeUNEditable(elementidname));
+
+ }
+ function makeUNEditable(elementidname){
+   console.log("unedited");
+
  }
 
 
-   document.addEventListener("DOMContentLoaded", function(event) {
-       getStarted();
-     });
+
+ document.addEventListener("DOMContentLoaded", function(event) {
+     getStarted();
+
+   });

@@ -3,80 +3,8 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
   <script src="background.js"></script>
   <style>
-  body {
-    font-family:'Open Sans', Raleway, Helvetica, Arial, sans-serif;
-    background: url(prettypicture.png) no-repeat #000000 ;
-    background-size:cover;
-    width:100%;
-    height:100%;
-    color:#ffffff;
-  }
-
-  #timedetails {
-    float:left;
-
-  }
-
-    #leftcolumn {
-      width:35%;
-
-    }
-    #time {
-      height:50px;
-    }
-      #clock {
-        padding:0 10px;
-        float:left;
-      }
-
-#text, #currenttask {
-  padding:10px 0;
-}
-
-        h1{
-          font-size:48px;
-        }
-        h2{
-        font-size:34px;
-        }
-        h3{
-        color:rgb(0, 189, 249);
-        }
-        h1,h2,h3,h4,h5,h6, ul{
-            font-weight:lighter;
-            margin:0;
-            padding:0;
-          }
-      ul {
-        list-style:none;
-        font-size: 14px;
-        line-height: 24px;
-      }
-
-      li {
-        border-bottom:1px #555 solid;
-      }
-    .semibold {
-      font-weight:600;
-    }
-      .bold {
-        font-weight:800;
-      }
-
-      .strike {
-        text-decoration: line-through;
-      }
-
-      .fa {
-        padding-right: 5px;
-      }
-
-      h2 .currenttask{
-        padding:0;
-        margin:0;
-      }
   </style>
-<link rel="stylesheet" href="font-awesome.min.css">
+<link rel="stylesheet" href="style.css">
 
 </head>
 <body>
@@ -113,7 +41,10 @@
 </div>
 <div id="maintask">
 <h3>Current Task</h3>
-<h2 class="currenttask"> Rajouter l'édition des tâches & le check (done/undone/clean list) </h2>
+<h2> <textarea  id="currenttask" cols="80" rows="3">
+  Rajouter l'édition des tâches & le check (done/undone/clean list)
+</textarea>
+</h2>
 <br>
 </div>
 
