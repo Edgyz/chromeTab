@@ -43,36 +43,57 @@ function sayHi(hours,minutes) {
       salutations.innerHTML = randomSalutation.replace("babychouchou",name);
   }}
 
-function getStarted() {
-fetchDate();
-setInterval(fetchDate, 30000);
 
-document.getElementById('currenttask').addEventListener('input', saysomething);
+ function saveMainTask(){
+    // Get a value saved in a form.
+    var theValue =  document.getElementById('currenttask').value;
+    // Check that there's some code there.
+    if (!theValue) {
+      message('Error: No value specified');
+      return;
+    }
+    // Save it using the Chrome extension storage API.
+    chrome.storage.sync.set({'maintask': theValue});
 
- }
+    console.log("task saved");
+    chrome.storage.sync.get('maintask', function(items) {
+       if (!chrome.runtime.error) {
+         console.log();
+       }
+     });
+     }
 
-function saysomething(){
-
-  console.log("wheteveresr");
-}
 
 
 
-
- function makeEditable(elementidname){
-  var attribStatus = document.getElementById(elementidname).setAttribute('contenteditable',"true");
-    console.log("edited");
-    document.getElementById(elementidname).addEventListener("onfocusout", makeUNEditable(elementidname));
-
- }
- function makeUNEditable(elementidname){
-   console.log("unedited");
-
- }
-
+///// Once content is loaded....
 
 
  document.addEventListener("DOMContentLoaded", function(event) {
      getStarted();
 
    });
+
+   ///// ...we launch the timer (clock) and EventListener for the textarea...
+
+
+   function getStarted() {
+   fetchDate();
+   setInterval(fetchDate, 30000);
+   var mainTaskObj =  document.getElementById('currenttask');
+
+   /// check storage
+   chrome.storage.sync.get("maintask", function(items) {
+      if (!chrome.runtime.error) {
+        mainTaskObj.value = items.maintask;
+
+      }
+    });
+
+   mainTaskObj.addEventListener('input', saveMainTask);
+    }
+
+    //// just a quick way to check stuff
+    function saysomething(){
+      console.log("wheteveresr");
+    }
