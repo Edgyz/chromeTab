@@ -6,6 +6,13 @@
 // }
 
 
+
+////// MAIN FUNCTIONS
+
+
+
+/// TIME & SALUTATIONS
+
 function fetchDate() {
   console.log("updating time");
   var d = new Date();
@@ -18,9 +25,9 @@ function fetchDate() {
     m = "0"+m;
     }
 
-strHours.innerHTML = h.toString().concat(":",m.toString());
-sayHi(h,m);
-}
+  strHours.innerHTML = h.toString().concat(":",m.toString());
+  sayHi(h,m);
+  }
 
 function sayHi(hours,minutes) {
   var salutations = document.getElementById("salut");
@@ -41,27 +48,117 @@ function sayHi(hours,minutes) {
 
       console.log(randomSalutation);
       salutations.innerHTML = randomSalutation.replace("babychouchou",name);
-  }}
+}}
 
 
+
+/// STORAGE
  function saveMainTask(){
     // Get a value saved in a form.
-    var theValue =  document.getElementById('currenttask').value;
+    var MainTaskValue =  document.getElementById('currenttask').value;
+    var TaskInputs = document.getElementsByTagName('input');
+    var TaskListValues = {};
+    for (var i = 0; i < TaskInputs.length; i++) {
+      TaskListValues[i] = TaskInputs[i].value;
+    }
+
     // Check that there's some code there.
-    if (!theValue) {
-      message('Error: No value specified');
+    if (!MainTaskValue) {
+      message('Error: No value specified in Main Task');
       return;
     }
-    // Save it using the Chrome extension storage API.
-    chrome.storage.sync.set({'maintask': theValue});
 
-    console.log("task saved");
+    // Save it using the Chrome extension storage API.
+    chrome.storage.sync.set({'maintask': MainTaskValue});
+    chrome.storage.sync.set({'tasklist': TaskListValues});
+
+    console.log("tasks saved");
     chrome.storage.sync.get('maintask', function(items) {
        if (!chrome.runtime.error) {
          console.log();
        }
      });
+
+     chrome.storage.sync.get('tasklist', function(items) {
+        if (!chrome.runtime.error) {
+          console.log();
+        }
+      });
      }
+
+
+function checkStorage() {
+
+
+
+   /// check storage & get data (main task)
+   chrome.storage.sync.get("maintask", function(items) {
+      if (!chrome.runtime.error) {
+        document.getElementById("currenttask").value = items.maintask;
+
+      }
+    });
+    /// check storage & get data (TaskList)
+    chrome.storage.sync.get("tasklist", function(items) {
+       if (!chrome.runtime.error) {
+          document.getElementById("taskListTable").value = items.tasklist;
+          console.log(items.tasklist);
+          document.getElementById("upnext").appendChild(createTable(items.tasklist));
+
+                       var inputArray = document.getElementsByTagName("input");
+
+                       for (var i = 0; i < Object.keys(inputArray).length; i++) {
+                        document.getElementsByTagName("input")[i].addEventListener("input", saveMainTask);
+                       }
+
+       }
+     });
+}
+////// Get Started
+
+ function getStarted() {
+
+     ///// ...launch the timer (clock) & an interval for the next update
+     fetchDate();
+     setInterval(fetchDate, 30000);
+     console.log("Date fetched, timer set.");
+
+      checkStorage();
+      console.log("Storage checked.");
+
+        document.getElementById("currenttask").addEventListener('input', saveMainTask);
+        document.getElementById("addTaskBtn").addEventListener('click', addaTask);
+        console.log("SOME listeners added.");
+
+  }
+
+function addaTask(){
+
+  var latestTR = document.getElementById("taskListTable").getElementsByTagName("tr")[document.getElementById("taskListTable").getElementsByTagName("tr").length-1];
+
+
+var cln = latestTR.cloneNode(true);
+cln.lastElementChild.lastElementChild.setAttribute("value"," new task");
+latestTR.parentElement.insertBefore(cln,latestTR.nextSibling);
+
+}
+
+function createTable(array){
+
+  console.log(Object.keys(array).length);
+  var taskTable = document.createElement("table");
+  taskTable.setAttribute("id","taskListTable");
+  var defaultRow = "<tr><td><i class=\"fa fa-square\"></i></td><td class=\"task\"><input  class=\"tasklist\" type=\"text\" value=\"VALUE-TO-REPLACE\" /></td></tr>";
+
+    for (var i = 0; i < Object.keys(array).length; i++) {
+      taskTable.innerHTML+= defaultRow.replace("VALUE-TO-REPLACE",array[i]);
+      console.log(array[i]);
+
+console.log(taskTable);
+  }
+  console.log(taskTable);
+  return taskTable;
+}
 
 
 
@@ -71,29 +168,7 @@ function sayHi(hours,minutes) {
 
  document.addEventListener("DOMContentLoaded", function(event) {
      getStarted();
+     console.log("We're getting started.");
+
 
    });
-
-   ///// ...we launch the timer (clock) and EventListener for the textarea...
-
-
-   function getStarted() {
-   fetchDate();
-   setInterval(fetchDate, 30000);
-   var mainTaskObj =  document.getElementById('currenttask');
-
-   /// check storage
-   chrome.storage.sync.get("maintask", function(items) {
-      if (!chrome.runtime.error) {
-        mainTaskObj.value = items.maintask;
-
-      }
-    });
-
-   mainTaskObj.addEventListener('input', saveMainTask);
-    }
-
-    //// just a quick way to check stuff
-    function saysomething(){
-      console.log("wheteveresr");
-    }
